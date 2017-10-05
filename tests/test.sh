@@ -2,6 +2,7 @@
 export ANSIBLE_ROLES_PATH=$(pwd)/roles:/etc/ansible/roles
 
 env | sort | grep -v ^LESS_TERMCAP
+ansible --version
 echo "Installing roles..."
 ansible-galaxy install -f -r requirements.yml
 ### Test: syntax
