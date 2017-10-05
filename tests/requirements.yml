@@ -1,0 +1,3 @@
+---
+- src: https://github.com/devops-workflow/ansible-role-aws-ecr.git
+  name: aws-ecr
