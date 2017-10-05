@@ -11,4 +11,4 @@ ansible-playbook -i inventory test.yml --syntax-check --list-tasks
 #echo "Test: Lint"
 #ansible-lint -x ANSIBLE0012,ANSIBLE0013 test.yml
 echo "Run test playbook"
-ansible-playbook -i inventory test.yml --extra-vars aws_region=us-west-2
+ansible-playbook -i inventory test.yml --extra-vars aws_region=us-west-2 -vvvv
