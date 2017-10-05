@@ -1,3 +1,4 @@
+---
 
 - name: Create ecr_repo
   ecs_ecr:
