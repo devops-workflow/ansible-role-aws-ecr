@@ -6,7 +6,3 @@
     state: present
     policy: "{{ lookup('template', 'ecr_policy.json.j2') }}"
     #registry_id: account id # Only set if ecr_owner is set
-
-- name: Are 2 tasks required?
-  shell: /bin/echo HI
-  # Seems like not in tasks block or name: not recognized
