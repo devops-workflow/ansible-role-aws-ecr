@@ -1,0 +1,7 @@
+---
+# defaults file for aws_ecr
+namespace: ""
+image_name: ""
+aws_RO_accounts: ""
+ecr_owner: ""
+aws_region: "us-west-2"

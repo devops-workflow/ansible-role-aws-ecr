@@ -1,0 +1,7 @@
+---
+- name: Create ecr_repo
+  ecs_ecr:
+    name: "{{ namespace }}/{{ image_name }}"
+    state: present
+    policy: "{{ lookup('template', 'ecr_policy.json.j2') }}"
+    #registry_id: account id # Only set if ecr_owner is set

@@ -1,0 +1,26 @@
+{
+    "Version": "2008-10-17",
+    "Statement": [
+        {
+            "Sid": "ECR RO access",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": [
+                  {# Give all accounts RO access #}
+                  {%- for account in aws_RO_accounts %}
+                  "arn:aws:iam::{{ account }}:root"{% if not loop.last %},{% endif %}
+                  {%- endfor %}
+                ]
+            },
+            "Action": [
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage",
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:DescribeRepositories",
+                "ecr:ListImages",
+                "ecr:DescribeImages",
+                "ecr:GetRepositoryPolicy"
+            ]
+        }
+    ]
+}
