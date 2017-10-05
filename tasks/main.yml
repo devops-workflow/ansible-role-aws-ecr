@@ -8,4 +8,5 @@
     #registry_id: account id # Only set if ecr_owner is set
 
 - name: Are 2 tasks required?
-  action: "echo HI"
+  shell: /bin/echo HI
+  # Seems like not in tasks block or name: not recognized
