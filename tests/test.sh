@@ -5,7 +5,9 @@ python=$(which python)
 env | sort | grep -v ^LESS_TERMCAP
 echo "Install: pip modules..."
 pip install -r requirements.txt
+echo "Versions"
 ansible --version
+docker --version
 echo "Install: Ansible roles..."
 ansible-galaxy install -f -r requirements.yml
 ### Test: syntax
