@@ -1,9 +1,9 @@
 ---
 # defaults file for aws_ecr
-namespace: "test"
-image_name: "image"
-aws_RO_accounts:
-  - 830036458304
-  - 116821282425
-ecr_owner: ""
 aws_region: "us-west-2"
+aws_RO_accounts:
+  - Account00001
+  - Account00002
+ecr_owner: ""
+image_name: "image"
+namespace: "test"
