@@ -9,6 +9,7 @@
 
 #- name: Update ecr-repo lifecycle policy
 #  # Until supported in ecr module
+#  #  https://github.com/ansible/ansible/blob/devel/lib/ansible/modules/cloud/amazon/ecs_ecr.py
 #  # Requires: awscli, jq
 #  script: |
 #    ## Get current Lifecycle policy
