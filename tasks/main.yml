@@ -6,3 +6,48 @@
     state: present
     policy: "{{ lookup('template', 'ecr_policy.json.j2') }}"
     #registry_id: account id # Only set if ecr_owner is set
+
+- name: Update ecr-repo lifecycle policy
+  # Until supported in ecr module
+  # Requires: awscli, jq
+  script: |
+    ## Get current Lifecycle policy
+    policy=$(aws ecr get-lifecycle-policy --repository-name "{{ namespace }}/{{ image_name }}")
+    if [ $? -eq 0 ]; then
+      # Got an old policy, need to compare
+      echo "${policy}" | jq -r .lifecyclePolicyText | jq . > policy-current
+      #aws ecr get-lifecycle-policy --repository-name "test/docker-node" | jq -r .lifecyclePolicyText | jq . > policy-current
+      ## diff with desired policy
+      cat <<POLICY >policy-desired
+    {
+      "rules": [
+        {
+          "rulePriority": 10,
+          "description": "Remove all Untagged images > 1 day",
+          "selection": {
+            "tagStatus": "untagged",
+            "countType": "sinceImagePushed",
+            "countUnit": "days",
+            "countNumber": 1
+          },
+          "action": {
+            "type": "expire"
+          }
+        }
+      ]
+    }
+    POLICY
+      diff -wB policy-desired policy-current
+      ## Set policy if different
+      if [ $? -ne 0 ]; then
+        setPolicy=true
+      fi
+    else
+      # Was no old policy. Need to set
+      setPolicy=true
+    fi
+    if [ "${setPolicy}" == 'true' ]; then
+      aws ecr put-lifecycle-policy --repository-name "{{ namespace }}/{{ image_name }}" --lifecycle-policy-text "$(cat policy-desired)"
+      #aws ecr put-lifecycle-policy --repository-name "test/docker-node" --lifecycle-policy-text "$(cat policy-desired)"
+    fi
+    #rm -f policy-desired policy-current
